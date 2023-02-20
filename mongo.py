@@ -20,14 +20,6 @@ def geocode(address):
         return 0, 0
 
 
-dbname = 'trainder'
-connstr = 'mongodb+srv://ta:' + password + \
-    '@cluster0.vcni3ya.mongodb.net/' + dbname
-client = pymongo.MongoClient(connstr)
-collection = client[dbname]['users']
-cursor = collection.find({})
-
-
 def add_lat_lng():
     for document in cursor:
         address = document.get('address')
@@ -43,3 +35,9 @@ def rename_lat_lng():
         {}, {'$rename': {'latitude': 'lat', 'longitude': 'lng'}})
 
 
+dbname = 'trainder'
+connstr = 'mongodb+srv://ta:' + password + \
+    '@cluster0.vcni3ya.mongodb.net/' + dbname
+client = pymongo.MongoClient(connstr)
+collection = client[dbname]['users']
+cursor = collection.find({})
