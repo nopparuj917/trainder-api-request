@@ -35,9 +35,22 @@ def rename_lat_lng():
         {}, {'$rename': {'latitude': 'lat', 'longitude': 'lng'}})
 
 
+def init_reviews():
+    collection.update_many({}, {"$set": {"reviews": []}})
+
+
+def delete_reviews():
+    collection.update_many({}, {"$unset": {"review": ""}})
+
+
+def delete_user(username):
+    collection.delete_one({"username": username})
+
+
 dbname = 'trainder'
 connstr = 'mongodb+srv://ta:' + password + \
     '@cluster0.vcni3ya.mongodb.net/' + dbname
 client = pymongo.MongoClient(connstr)
 collection = client[dbname]['users']
 cursor = collection.find({})
+delete_user("test1")
